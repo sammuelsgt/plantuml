@@ -1,0 +1,35 @@
+@startuml movieticket
+actor User
+actor Admin
+actor System
+object CheckOut
+database Database
+User -> System: Login
+User -> System: Search movie by title
+System -> Database: Query movies by title
+System <- Database: Returns list of matching movies
+System -> User: Returns list of matching movies
+
+User -> System: Selects a movie
+System -> Database: Query movie details 
+System <- Database: Returns movie details and showtimes
+System -> User: Returns movie details and showtimes
+
+User -> System: Selects a showtime
+System -> Database: Check seat availability
+System <- Database: Returns seat availability
+System -> System: Confirm seats are available
+System -> Database: Create reservation
+System <- Database: Returns confirmation
+System -> User: Confirms reservation
+User <- System: Return success message
+
+User -> System: Proceeds to checkout
+System -> CheckOut: Process payment
+System <- CheckOut: Returns payment status
+User <- System: Return success message
+
+
+
+
+@enduml

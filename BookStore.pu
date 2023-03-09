@@ -1,0 +1,27 @@
+@startuml bookstore
+actor User
+actor Admin
+actor System
+object Cart
+database Database
+
+User -> System: Login
+User -> System: Browse store
+System -> Database: Get available books
+System <- Database: List of available books
+System -> User: Return list of available books
+
+User -> System: Add book to cart
+System -> Cart: Add book
+System <- Cart: Success message
+System -> User: Return success message
+
+User -> System: Proceed to checkout
+System -> Cart: Get cart contents
+System <- Cart: list of cart items
+System -> User: Display cart contents
+User -> System: Complete purchase
+System -> Cart: Purchase cart contents
+System <- Cart: Success message
+System -> User: Return success message
+@enduml
